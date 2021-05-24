@@ -13,9 +13,14 @@
 
 ## 时间
 
-### 富士达电梯运维-0.0.1（工期7天，费用11天）
+### 富士达电梯运维-0.0.1（工期7天，工作量11天）
 
-* 11天，根据工作计划表的任务量的进行时间的估算。
+* 初步想法主要是要实现：我们品牌（富士达）电梯的所在项目位置！
+* 红色表示我们自己保养的！
+* 蓝色表示第三方保养的！
+* 黄色表示不久会进入我们保养的！
+* 数字要实现可以任意修改，每个项目点击可以看到该项目的一些信息（包括具体位置、电梯数量、使用年限）！上述信息可以实现不定期便捷的修改！
+* 能体现哪些项目保养了，哪些项目没保养这等内容，便于我们管理，可以在图标上动点心思，比如加一个字：未，已。或者换个图标，坏电梯或者好电梯。
 
 ## 人员
 
@@ -28,14 +33,74 @@
 | 富士达电梯维护-0.0.1 | 硬件          | 服务器<br />公网IP                                           | 100元/1月 | 刘楚门 |
 |                      | 前端-APP      | 功能-地图<br />功能-地图-缩放<br />功能-电梯-查询<br />功能-电梯-编辑 | 4天       | 熊畅坤 |
 |                      | 前端-数据管理 | 功能-电梯-数据同步<br />功能-电梯-数据同步-验证              | 2天       | 周兴邦 |
-|                      | 后端-APP      | 接口-电梯-添加  <br />接口-电梯-编辑  <br />接口-电梯-查询   | 3天       | 韩文轩 |
-|                      | 端-数据管理后 | 接口-电梯-数据同步<br />接口-电梯-数据同步-验证              | 2天       | 刘楚门 |
+|                      | 后端-APP      | 接口-电梯-编辑  <br />接口-电梯-查询                         | 2天       | 韩文轩 |
+|                      | 后端-数据管理 | 接口-电梯信息-同步<br />接口-电梯信息-验证                   | 3天       | 韩文轩 |
 |                      | 测试真机      | 谷歌<br />小米<br />红米<br />魅族                           | 不定      | 刘楚门 |
 |                      |               |                                                              |           |        |
 
 # 前端-APP
 
 ![](prototype-design\APP.png)
+
+## 电梯-查询
+
+```python
+### 所有电梯信息
+GET /fujitec/elevators
+#输入
+#输出
+{
+    "err":null,		
+    "val":{
+        "沙长沙华润置地广场一期":[{	# 电梯数2部
+                "location":"湖南长沙长沙华润置地广场一期",    #电梯位置，由省份+城市+工程名称拼接而成
+                "id":"XAA9548",			 #电梯编号，独一无二
+                "type":"其它类型梯",		#电梯类型 F_SW扶梯，F_HS升降梯，其它类型梯
+                "maintaining_type":"第三方保养", #保养类型 我方保养，即将我方保养，第三方保养：默认
+                "maintaining_state":"未保养", #保养状态 已保养，未保养：默认
+                "service_life":"10年"   #使用年限 10年：默认
+            },{
+                "location":"湖南长沙长沙华润置地广场一期",
+                "id":"XAA9548",
+                "type":"F_SW扶梯",
+                "maintaining_type":"我方保养",
+                "maintaining_state":"已保养",
+                "service_life":"10年"
+            }
+        ],
+        "南长沙金轮时代广场":[{		#电梯数1部
+                "location":"湖南长沙金轮时代广场",  
+                "id":"XAA9550",			 
+                "type":"F_HS升降梯",		
+                "maintaining_type":"第三方保养",
+                "maintaining_state":"未保养",
+                "service_life":"10年"
+            }
+        ]
+    }
+}
+```
+
+## 电梯-修改
+
+```python
+### 修改一台电梯信息
+PUT /fujitec/elevator-set
+#输入
+{
+    "location":"湖南长沙长沙华润置地广场一期",  #必填
+    "id":"XAA9548",						 	#必填
+    "type":"其它类型梯",		
+    "maintaining_type":"我方保养",
+    "maintaining_state":"已保养",
+    "service_life":"10年"
+}
+#输出
+{
+    "err":null,		#失败返回明确的错误信息
+    "val":true 		#true：格式正确，false：格式错误
+}
+```
 
 # 前端-数据管理
 
@@ -45,7 +110,7 @@
 
 ```python
 ###验证电梯数据是否符合要求
-POST http://dungbeetles.xyz:60000/fujitec/sync
+POST http://dungbeetles.xyz:60000/fujitec/elevators_sync
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 #输入
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
@@ -56,7 +121,7 @@ Content-Type: application/octet-stream
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 #输出
 {
-    "err":null,		#验证失败则返回明确的错误信息
+    "err":null,		#失败返回明确的错误信息
     "val":true 		#true：格式正确，false：格式错误
 }
 ```
@@ -65,7 +130,7 @@ Content-Type: application/octet-stream
 
 ```python
 ###同步电梯数据到json文件数据
-POST http://dungbeetles.xyz:60000/fujitec/sync
+POST http://dungbeetles.xyz:60000/fujitec/elevators-valid
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 #输入
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
@@ -76,7 +141,7 @@ Content-Type: application/octet-stream
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 #输出
 {
-    "err":null,
+    "err":null, 	#失败返回明确的错误信息
     "val":true 		#true：同步成功，false：同步失败
 }
 
@@ -94,8 +159,8 @@ Content-Type: application/octet-stream
 │  │      XAA9550.json
 │  │
 │  └─湖南长沙长沙华润置地广场一期
-│          XAA9548.json
-│          XAA9549.json
+│         XAA9548.json
+│         XAA9549.json
 │
 └─static
     └─data
