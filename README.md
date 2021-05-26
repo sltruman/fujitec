@@ -51,33 +51,37 @@ GET /fujitec/elevators
 #输出
 {
     "err":null,		
-    "val":{
-        "沙长沙华润置地广场一期":[{	# 电梯数2部
-                "location":"湖南长沙长沙华润置地广场一期",    #电梯位置，由省份+城市+工程名称拼接而成
-                "id":"XAA9548",			 #电梯编号，独一无二
-                "type":"其它类型梯",		#电梯类型 F_SW扶梯，F_HS升降梯，其它类型梯
-                "maintaining_type":"第三方保养", #保养类型 我方保养，即将我方保养，第三方保养：默认
-                "maintaining_state":"未保养", #保养状态 已保养，未保养：默认
-                "service_life":"10年"   #使用年限 10年：默认
-            },{
-                "location":"湖南长沙长沙华润置地广场一期",
-                "id":"XAA9548",
-                "type":"F_SW扶梯",
-                "maintaining_type":"我方保养",
-                "maintaining_state":"已保养",
-                "service_life":"10年"
-            }
-        ],
-        "南长沙金轮时代广场":[{		#电梯数1部
-                "location":"湖南长沙金轮时代广场",  
-                "id":"XAA9550",			 
-                "type":"F_HS升降梯",		
+    "val":[{
+            "longitude":112.74692048046873,
+            "latitude":28.183942807485778,
+            "location":"湖南长沙长沙华润置地广场一期",    #电梯位置，由省份+城市+工程名称拼接而成
+            "elevators":[{ 	# 电梯数2部
+                    "id":"XAA9548",			 #电梯编号，独一无二
+                    "type":"其它类型梯",		#电梯类型 F_SW扶梯，F_HS升降梯，其它类型梯
+                    "maintaining_type":"第三方保养", #保养类型 我方保养，即将我方保养，第三方保养：默认
+                    "maintaining_state":"未保养", #保养状态 已保养，未保养：默认
+                    "service_life":"10年"   #使用年限 10年：默认                
+                },{
+                    "id":"XAA9548",
+                    "type":"F_SW扶梯",
+                    "maintaining_type":"我方保养",
+                    "maintaining_state":"已保养",
+                    "service_life":"10年"
+                }
+            ]
+        },{
+        	"longitude":112.74692048046873,
+        	"latitude":28.183942807485778,
+        	"location":"湖南长沙金轮时代广场",  
+        	"elevators":[{	#电梯数1部
+            	"id":"XAA9550",
+                "type":"F_HS升降梯",
                 "maintaining_type":"第三方保养",
                 "maintaining_state":"未保养",
                 "service_life":"10年"
-            }
-        ]
-    }
+            }]
+        }
+    ]
 }
 ```
 
@@ -180,9 +184,10 @@ Content-Type: application/octet-stream
 ### 电梯信息-JSON格式
 
 ```python
-# db/湖南长沙 长沙华润置地广场一期/XAA9548.json
+# db/湖南长沙长沙华润置地广场一期/XAA9548.json
 {
-    "location":"湖南长沙长沙华润置地广场一期",    #电梯位置，由省份+城市+工程名称拼接而成
+    "longitude":112.74692048046873,
+    "latitude":28.183942807485778,
     "id":"XAA9548",			 #电梯编号，独一无二
     "type":"其它类型梯",		#电梯类型 F_SW扶梯，F_HS升降梯，其它类型梯
     "maintaining_type":"第三方保养", #保养类型 我方保养，即将我方保养，第三方保养：默认
@@ -192,7 +197,8 @@ Content-Type: application/octet-stream
 
 # db/湖南长沙长沙华润置地广场一期/XAA9549.json
 {
-    "location":"湖南长沙长沙华润置地广场一期",  
+    "longitude":112.74692048046873,
+    "latitude":28.183942807485778,
     "id":"XAA9549",			 
     "type":"F_SW扶梯",		
     "maintaining_type":"第三方保养",
@@ -202,7 +208,8 @@ Content-Type: application/octet-stream
 
 # db/金轮时代广场/XAA9550.json
 {
-    "location":"湖南长沙金轮时代广场",  
+    "longitude":112.74692048046873,
+    "latitude":28.183942807485778,
     "id":"XAA9550",			 
     "type":"F_HS升降梯",		
     "maintaining_type":"第三方保养",
