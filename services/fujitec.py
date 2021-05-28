@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-import copy
 import json
 import os
 import traceback
+from pathlib import Path
 
-from flask import Flask, flash, abort, redirect, request as req, url_for
+from flask import Flask, request as req
 from flask_cors import CORS
-from doc.agent import get_all_info, change_info
+from services.agent import get_all_info, change_info, excel_to_json, data_verification
 
 os.makedirs(f'db', exist_ok=True)
 
@@ -50,29 +50,43 @@ app.config['UPLOAD_FOLDER'] = 'static/data/'
 @app.route('/fujitec/elevators-valid', methods=['POST'])
 def elevators_valid():
     if 'file' not in req.files:
-        err = 'No file part'
-        return {'val': None, 'err': 'No file part!'}
+        return {'val': False, 'err': 'No file part!'}
     file = req.files['file']
     if file.filename == '':
-        return {'val': None, 'err': 'No selected file!'}
+        return {'val': False, 'err': 'No selected file!'}
     if file:
-        filename = secure_filename(file.filename)
+        filename = file.filename
+        print(filename)
+        file_path = app.config['UPLOAD_FOLDER'] + filename
+        if os.path.exists(file_path):
+            os.remove(file_path)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    return {'val': True, 'err': None}
+        res = excel_to_json(file_path)
+        if res.get("val") is True:
+            return {'val': True, 'err': None}
+        else:
+            return {"val": False, "err": res.get("err")}
 
 
 @app.route('/fujitec/elevators_sync', methods=['POST'])
 def elevators_sync():
     if 'file' not in req.files:
-        err = 'No file part'
         return {'val': None, 'err': 'No file part!'}
     file = req.files['file']
     if file.filename == '':
         return {'val': None, 'err': 'No selected file!'}
     if file:
-        filename = secure_filename(file.filename)
+        filename = file.filename
+        print(filename)
+        file_path = app.config['UPLOAD_FOLDER'] + filename
+        if os.path.exists(file_path):
+            os.remove(file_path)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-    return {'val': True, 'err': None}
+        res = data_verification(file_path)
+        if res.get("val") is True:
+            return {'val': True, 'err': None}
+        else:
+            return {"val": False, "err": res.get("err")}
 
 
 print('http://localhost:60000/')
