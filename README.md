@@ -104,12 +104,19 @@ GET /fujitec/elevators
 PUT /fujitec/elevator-set
 #输入
 {
-    "location":"长沙华润置地广场一期",  #必填
-    "id":"XAA9548",						 	#必填
-    "type":"其它类型梯",		
-    "maintaining_type":"我方保养",
-    "maintaining_state":"已保养",
-    "service_life":"10年"
+    "city":"长沙",
+    "longitude":112.74692048046873,
+    "latitude":28.183942807485778,
+    "id":"XAA9548",			 #电梯编号，独一无二
+    "type":"其它类型梯",		#电梯类型 扶梯：F/SW，升降梯：F/HS，其它类型梯：默认
+    "maintaining_type":"第三方保养", #保养类型 
+                                     # 代理商保养：代理商有偿保养，代理商免保中
+                                     # 第三方保养：其他公司保养
+                                     # 我方保养：有偿保养中，免保中
+                                     # 即将我方保养：默认
+    "maintaining_state":"已保养", #保养状态 未保养，已保养：默认
+    "service_life":"10年"   #使用年限 免保结束日后开始计算 
+                
 }
 #输出
 {
