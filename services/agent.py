@@ -19,34 +19,44 @@ def get_all_info():
     path = r"db"
     file_list = listdir(path)
     # print(file_list)
-    elevators_info = []
-    for location in file_list:
-        file_path = r"{}\{}".format(path, location)
-        json_file = os.listdir(file_path)
-        j_name = json_file[0]
-        j_path = r"{}\{}".format(file_path, j_name)
-        info = open(j_path, encoding="utf-8")
-        data = json.load(info)
-        longitude = data["longitude"]
-        latitude = data["latitude"]
-        elevator = {
-            "longitude": longitude,
-            "latitude": latitude,
-            "location": location,
+    if not file_list:
+        res_data = {
+            "err": "数据还未同步，请先同步",
+            "val": False
         }
-        location_info = []
-        # print(file_path)
-        json_file = os.listdir(file_path)
-        for json_name in json_file:
-            j_path = r"{}\{}".format(file_path, json_name)
-            j_info = open(j_path, encoding="utf-8")
-            elevator_info = json.load(j_info)
-            location_info.append(elevator_info)
-            # print(elevator_info)
-        elevator["elevators"] = location_info
-        elevators_info.append(elevator)
-    print(elevators_info)
-    return elevators_info
+    else:
+        elevators_info = []
+        for location in file_list:
+            file_path = r"{}\{}".format(path, location)
+            json_file = os.listdir(file_path)
+            j_name = json_file[0]
+            j_path = r"{}\{}".format(file_path, j_name)
+            info = open(j_path, encoding="utf-8")
+            data = json.load(info)
+            longitude = data["longitude"]
+            latitude = data["latitude"]
+            elevator = {
+                "longitude": longitude,
+                "latitude": latitude,
+                "location": location,
+            }
+            location_info = []
+            # print(file_path)
+            json_file = os.listdir(file_path)
+            for json_name in json_file:
+                j_path = r"{}\{}".format(file_path, json_name)
+                j_info = open(j_path, encoding="utf-8")
+                elevator_info = json.load(j_info)
+                location_info.append(elevator_info)
+                # print(elevator_info)
+            elevator["elevators"] = location_info
+            elevators_info.append(elevator)
+        print(elevators_info)
+        res_data = {
+            "val": True,
+            "data": elevators_info
+        }
+    return res_data
 
 
 def change_info(data):

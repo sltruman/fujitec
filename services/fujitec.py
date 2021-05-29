@@ -18,7 +18,11 @@ app.config['JSON_AS_ASCII'] = False
 @app.route('/fujitec/elevators', methods=['GET'])
 def elevators():
     try:
-        elevators_data = get_all_info()
+        res = get_all_info()
+        if res["val"]:
+            elevators_data = res["data"]
+        else:
+            elevators_data = None
         return {'val': elevators_data, 'err': None}
     except Exception:
         err_msg = traceback.format_exc()
