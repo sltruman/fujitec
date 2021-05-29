@@ -40,13 +40,13 @@
 
 # 前端-APP
 
-[![img](https://github.com/sltruman/fujitec/raw/main/prototype-design%5CAPP.png)](https://github.com/sltruman/fujitec/blob/main/prototype-design\APP.png)
+![img](./prototype-design/APP.png)
 
 ## 电梯-查询
 
-```
+```python
 ### 所有电梯信息
-GET /fujitec/elevators
+GET http://dungbeetles.xyz:60000/fujitec/elevators
 #输入
 #输出
 {
@@ -95,9 +95,9 @@ GET /fujitec/elevators
 
 ## 电梯-修改
 
-```
+```python
 ### 修改一台电梯信息
-PUT /fujitec/elevator-set
+PUT http://dungbeetles.xyz:60000/fujitec/elevator-set
 #输入
 {
     "location":"长沙华润置地广场一期",  #必填
@@ -116,17 +116,17 @@ PUT /fujitec/elevator-set
 
 # 前端-数据管理
 
-[![img](https://github.com/sltruman/fujitec/raw/main/prototype-design%5C%E6%95%B0%E6%8D%AE%E7%AE%A1%E7%90%86.png)](https://github.com/sltruman/fujitec/blob/main/prototype-design\数据管理.png)
+[![img](./prototype-design/数据管理.png)
 
 ## 电梯信息-验证
 
-```
+```python
 ###验证电梯数据是否符合要求
 POST http://dungbeetles.xyz:60000/fujitec/elevators_sync
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 #输入
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="file"; file="电梯信息.xls"
+Content-Disposition: form-data; name="file"; file="elevators.xls"
 Content-Type: application/octet-stream
 
 < ./电梯信息.xls
@@ -140,13 +140,13 @@ Content-Type: application/octet-stream
 
 ## 电梯信息-同步
 
-```
+```python
 ###同步电梯数据到json文件数据
 POST http://dungbeetles.xyz:60000/fujitec/elevators-valid
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 #输入
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="file"; file="电梯信息.xls"
+Content-Disposition: form-data; name="file"; file="elevators.xls"
 Content-Type: application/octet-stream
 
 < ./电梯信息.xls
@@ -160,7 +160,7 @@ Content-Type: application/octet-stream
 
 ### JSON数据库目录结构
 
-```
+```python
 .
 ..
 │  fujitec.py #后端接口服务
@@ -180,7 +180,7 @@ Content-Type: application/octet-stream
 
 ### 电梯信息-XLS/CSV格式
 
-```
+```python
 # data/电梯信息.xls
 地区,工程号,工程名,机种类别,维保状态,保养公司名,免保开始日,免保结束日,免保期限,项目地址
 长沙,AEA1143,湖南长沙晚报,F/HS,代理商有偿保养,长沙富士达,2002-12-31,2003-12-31,12个月, 	
