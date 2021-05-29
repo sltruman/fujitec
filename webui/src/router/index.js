@@ -6,15 +6,22 @@ Vue.use(Router)
 const routes = [
   {
     path: '*',
-    redirect: '/manage/liftdata'
+    redirect: '/liftdata'
   },
   {
-    name: 'liftdata',
-    path: '/manage/liftdata',
-    component: () => import('../views/lift_data_mgmt'),
-    meta: {
-      title: '电梯管理'
-    }
+    name: 'manage',
+    redirect: '/manage/liftdata',
+    // component: () => import('../views/lift_data_mgmt'),
+    component: () => import('../layout/basic'),
+    children: [
+      {
+        name: 'liftdata',
+        path: '/liftdata',
+        component: () => import('../views/lift_data_mgmt'),
+        meta: {
+          title: '数据管理'
+        }
+      }]
   }
 ]
 
