@@ -8,8 +8,8 @@ import xlrd
 import json
 import multiprocessing
 from os import listdir
-from services.config import gaode_api_key
-from services.config import gaode_api_url
+from config import gaode_api_key
+from config import gaode_api_url
 
 
 def get_all_info():

@@ -6,7 +6,7 @@ from pathlib import Path
 
 from flask import Flask, request as req
 from flask_cors import CORS
-from services.agent import get_all_info, change_info, excel_to_json, data_verification
+from agent import get_all_info, change_info, excel_to_json, data_verification
 
 os.makedirs(f'db', exist_ok=True)
 
@@ -49,8 +49,6 @@ from werkzeug.utils import secure_filename
 os.makedirs(f'static/data', exist_ok=True)
 
 app.config['UPLOAD_FOLDER'] = 'static/data/'
-
-
 @app.route('/fujitec/elevators-valid', methods=['POST'])
 def elevators_valid():
     if 'file' not in req.files:
@@ -72,7 +70,7 @@ def elevators_valid():
             return {"val": False, "err": res.get("err")}
 
 
-@app.route('/fujitec/elevators_sync', methods=['POST'])
+@app.route('/fujitec/elevators-sync', methods=['POST'])
 def elevators_sync():
     if 'file' not in req.files:
         return {'val': None, 'err': 'No file part!'}

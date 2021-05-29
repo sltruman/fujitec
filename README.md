@@ -50,7 +50,7 @@ GET http://dungbeetles.xyz:60000/fujitec/elevators
 #输入
 #输出
 {
-    "err":null,		
+    "err":null,
     "val":[{
             "longitude":112.74692048046873,
             "latitude":28.183942807485778,
@@ -126,10 +126,10 @@ POST http://dungbeetles.xyz:60000/fujitec/elevators_sync
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 #输入
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="file"; file="elevators.xls"
+Content-Disposition: form-data; name="file"; filename="电梯信息.xls"
 Content-Type: application/octet-stream
 
-< ./电梯信息.xls
+< C:\Users\SLTru\Desktop\fujitec\doc\电梯信息0527.xls
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 #输出
 {
@@ -146,10 +146,10 @@ POST http://dungbeetles.xyz:60000/fujitec/elevators-valid
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 #输入
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="file"; file="elevators.xls"
+Content-Disposition: form-data; name="file"; filename="电梯信息.xls"
 Content-Type: application/octet-stream
 
-< ./电梯信息.xls
+< C:\Users\SLTru\Desktop\fujitec\doc\电梯信息0527.xls
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 #输出
 {
@@ -186,8 +186,6 @@ Content-Type: application/octet-stream
 长沙,AEA1143,湖南长沙晚报,F/HS,代理商有偿保养,长沙富士达,2002-12-31,2003-12-31,12个月, 	
 长沙,EXF5072,湖南长沙晚报,F/J,代理商有偿保养,长沙富士达,2000-1-1,2001-1-1,12个月, 
 长沙,KAX2217,长沙房地产交易市场,F/SW,停用,不明,2007-5-22,2008-5-22,12个月, 	
-
-
 ```
 
 ### 电梯信息-JSON格式

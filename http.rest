@@ -13,25 +13,27 @@ PUT http://dungbeetles.xyz:60000/fujitec/elevator-set
     "service_life":"10年"
 }
 
-###验证电梯数据是否符合要求
+###同步电梯数据到json文件数据
 POST http://dungbeetles.xyz:60000/fujitec/elevators_sync
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
 #输入
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="file"; file="elevators.xls"
+Content-Disposition: form-data; name="file"; filename="电梯信息.xls"
 Content-Type: application/octet-stream
 
-< ../doc/电梯信息0527.xls
+< C:\Users\SLTru\Desktop\fujitec\doc\电梯信息0527.xls
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 
-###同步电梯数据到json文件数据
+###验证电梯数据是否符合要求
 POST http://dungbeetles.xyz:60000/fujitec/elevators-valid
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
-#输入
+
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="file"; file="elevators.xls"
+Content-Disposition: form-data; name="file"; filename="电梯信息.xls"
 Content-Type: application/octet-stream
 
-< ../doc/电梯信息0527.xls
+< C:\Users\SLTru\Desktop\fujitec\doc\电梯信息0527.xls
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
+
