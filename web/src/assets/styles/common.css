@@ -1,0 +1,69 @@
+/*基本样式*/
+* {
+	margin: 0;
+	padding: 0;
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+}
+
+img {
+	border: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+ul>li {
+	list-style: none;
+}
+
+/*浮动定位*/
+.fl {
+	float: left;
+	display: inline;
+}
+
+/*设置display：inline 为了解决IE6的双外边距bug。在IE6下，如果对元素设置了浮动，同时设置了margin-left或者margin-right，margin值会加倍，如设置margin-left：10px在IE6下会显示为margin-left：20px。解决办法就是设置display：inline。*/
+.fr {
+	float: right;
+	display: inline;
+}
+
+.clear-both {
+	clear: both;
+}
+
+.clear-left {
+	clear: left;
+}
+
+.clear-right {
+	clear: right;
+}
+
+.clearfix:after {
+	content: '.';
+	display: block;
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+#app {
+	height: 100%;
+}
+
+.list-item_box .van-field__control {
+	text-align: right !important;
+	justify-content: flex-end !important;
+	font-size: 14px;
+}
