@@ -1,0 +1,1 @@
+rm ../app/www/ -rf && npm run build && mv www/ ../app/www && cd ../app/ && cordova run android && cd ../webui
