@@ -1,0 +1,192 @@
+{
+	"err": null,
+	"val": [{
+		"location": "湖南长沙长沙华润置地广场一期",
+		"id": "XAA9548",
+		"loinitude": 112.74692048046873,
+		"latitude": 28.183942807485778,
+		"number": 3,
+		"elevators": [{
+			"id": "XAA9548",
+			"type": "F_SW扶梯",
+			"maintaining_type": "我方保养",
+			"maintaining_state": "已保养",
+			"service_life": "10年"
+		}, {
+			"id": "XAA9548",
+			"type": "F_SW扶梯",
+			"maintaining_type": "我方保养",
+			"maintaining_state": "已保养",
+			"service_life": "10年"
+		}, {
+			"id": "XAA9548",
+			"type": "F_SW扶梯",
+			"maintaining_type": "我方保养",
+			"maintaining_state": "已保养",
+			"service_life": "10年"
+		}]
+	}, {
+		"location": "湖南长沙市雨花区丽发新城第4期 16栋",
+		"loinitude": 113.74692048046873,
+		"latitude": 28.183942807485778,
+		"id": "XAA9550",
+		"number": 2,
+		"elevators": [{
+			"id": "XAA9550",
+			"type": "F_HS升降梯",
+			"maintaining_type": "即将我方保养",
+			"maintaining_state": "未保养",
+			"service_life": "1年"
+		}, {
+			"id": "XAA9550",
+			"type": "F_SW扶梯",
+			"maintaining_type": "我方保养",
+			"maintaining_state": "已保养",
+			"service_life": "3年"
+		},{
+			"id": "XAA9550",
+			"type": "F_HS升降梯",
+			"maintaining_type": "第三方保养",
+			"maintaining_state": "未保养",
+			"service_life": "10年"
+		}, {
+			"id": "XAA9550",
+			"type": "F_SW扶梯",
+			"maintaining_type": "我方保养",
+			"maintaining_state": "已保养",
+			"service_life": "10年"
+		},{
+			"id": "XAA9550",
+			"type": "F_HS升降梯",
+			"maintaining_type": "第三方保养",
+			"maintaining_state": "未保养",
+			"service_life": "10年"
+		}, {
+			"id": "XAA9550",
+			"type": "F_SW扶梯",
+			"maintaining_type": "我方保养",
+			"maintaining_state": "已保养",
+			"service_life": "10年"
+		},{
+			"id": "XAA9550",
+			"type": "F_HS升降梯",
+			"maintaining_type": "第三方保养",
+			"maintaining_state": "未保养",
+			"service_life": "10年"
+		}, {
+			"id": "XAA9550",
+			"type": "F_SW扶梯",
+			"maintaining_type": "我方保养",
+			"maintaining_state": "已保养",
+			"service_life": "10年"
+		},{
+			"id": "XAA9550",
+			"type": "F_HS升降梯",
+			"maintaining_type": "第三方保养",
+			"maintaining_state": "未保养",
+			"service_life": "10年"
+		}, {
+			"id": "XAA9550",
+			"type": "F_SW扶梯",
+			"maintaining_type": "我方保养",
+			"maintaining_state": "已保养",
+			"service_life": "10年"
+		},{
+			"id": "XAA9550",
+			"type": "F_HS升降梯",
+			"maintaining_type": "第三方保养",
+			"maintaining_state": "未保养",
+			"service_life": "10年"
+		}, {
+			"id": "XAA9550",
+			"type": "F_SW扶梯",
+			"maintaining_type": "我方保养",
+			"maintaining_state": "已保养",
+			"service_life": "10年"
+		},{
+			"id": "XAA9550",
+			"type": "F_HS升降梯",
+			"maintaining_type": "第三方保养",
+			"maintaining_state": "未保养",
+			"service_life": "10年"
+		}, {
+			"id": "XAA9550",
+			"type": "F_SW扶梯",
+			"maintaining_type": "我方保养",
+			"maintaining_state": "已保养",
+			"service_life": "10年"
+		},{
+			"id": "XAA9550",
+			"type": "F_HS升降梯",
+			"maintaining_type": "第三方保养",
+			"maintaining_state": "未保养",
+			"service_life": "10年"
+		}, {
+			"id": "XAA9550",
+			"type": "F_SW扶梯",
+			"maintaining_type": "我方保养",
+			"maintaining_state": "已保养",
+			"service_life": "10年"
+		},{
+			"id": "XAA9550",
+			"type": "F_HS升降梯",
+			"maintaining_type": "第三方保养",
+			"maintaining_state": "未保养",
+			"service_life": "10年"
+		}, {
+			"id": "XAA9550",
+			"type": "F_SW扶梯",
+			"maintaining_type": "我方保养",
+			"maintaining_state": "已保养",
+			"service_life": "10年"
+		},{
+			"id": "XAA9550",
+			"type": "F_HS升降梯",
+			"maintaining_type": "第三方保养",
+			"maintaining_state": "未保养",
+			"service_life": "10年"
+		}, {
+			"id": "XAA9550",
+			"type": "F_SW扶梯",
+			"maintaining_type": "我方保养",
+			"maintaining_state": "已保养",
+			"service_life": "10年"
+		},{
+			"id": "XAA9550",
+			"type": "F_HS升降梯",
+			"maintaining_type": "第三方保养",
+			"maintaining_state": "未保养",
+			"service_life": "10年"
+		}, {
+			"id": "XAA9550",
+			"type": "F_SW扶梯",
+			"maintaining_type": "我方保养",
+			"maintaining_state": "已保养",
+			"service_life": "10年"
+		},{
+			"id": "XAA9550",
+			"type": "F_HS升降梯",
+			"maintaining_type": "第三方保养",
+			"maintaining_state": "未保养",
+			"service_life": "10年"
+		}, {
+			"id": "XAA9550",
+			"type": "F_SW扶梯",
+			"maintaining_type": "我方保养",
+			"maintaining_state": "已保养",
+			"service_life": "10年"
+		},{
+			"id": "XAA9550",
+			"type": "F_HS升降梯",
+			"maintaining_type": "第三方保养",
+			"maintaining_state": "未保养",
+			"service_life": "10年"
+		}, {
+			"id": "XAA9550",
+			"type": "F_SW扶梯",
+			"maintaining_type": "我方保养",
+			"maintaining_state": "已保养",
+			"service_life": "10年"
+		}]
+	}]
+}
