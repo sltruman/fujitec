@@ -48,7 +48,7 @@ app.config['UPLOAD_FOLDER'] = 'static/data/'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
 @app.route('/fujitec/elevators-sync', methods=['POST'])
-def elevators_valid():
+def elevators_sync():
     if 'file' not in req.files:
         return {'val': None, 'err': '没有文件部分!'}
 
@@ -60,14 +60,17 @@ def elevators_valid():
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         import test
-        
-        validing = threading.Thread(target=test.excel_to_json,args=['static/data/电梯信息.xls'])
+  
+        global validing     
+        validing = threading.Thread(target=test.excel_to_json,args=[f'static/data/{filename}'])
         validing.start()
         
         return {'val':True, 'err':None}
 
-@app.route('/fujitec/elevators-sync-status', methods=['POST'])
+@app.route('/fujitec/elevators-sync-status', methods=['GET'])
 def elevators_sync_status():
+    global validing
+    print(validing)
     return {'val':'同步中...' if validing and validing.is_alive() else '同步结束','err':None}
     
         
