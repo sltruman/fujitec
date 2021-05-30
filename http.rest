@@ -15,7 +15,7 @@ PUT http://dungbeetles.xyz:60000/fujitec/elevator-set
 }
 
 ###同步电梯数据到json文件数据
-POST http://127.0.0.1:60000/fujitec/elevators-sync
+POST http://dungbeetles.xyz:60000/fujitec/elevators-sync
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 #输入
@@ -28,4 +28,4 @@ Content-Type: application/octet-stream
 
 
 ###同步状态
-GET http://127.0.0.1:60000/fujitec/elevators-sync-status
+GET http://dungbeetles.xyz:60000/fujitec/elevators-sync-status
