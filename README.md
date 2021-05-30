@@ -52,8 +52,6 @@ GET http://dungbeetles.xyz:60000/fujitec/elevators
 {
     "err":null,
     "val":[{
-            "longitude":112.74692048046873,
-            "latitude":28.183942807485778,
             "location":"长沙华润置地广场一期",    #电梯位置
             "elevators":[{ 	# 电梯数2部
                     "city":"长沙",
@@ -76,8 +74,6 @@ GET http://dungbeetles.xyz:60000/fujitec/elevators
                 }
             ]
         },{
-        	"longitude":112.74692048046873,
-        	"latitude":28.183942807485778,
         	"location":"株洲金轮时代广场",  
         	"elevators":[{	#电梯数1部
                 "longitude":112.74692048046873,
