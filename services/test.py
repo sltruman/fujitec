@@ -12,6 +12,22 @@ from os import listdir
 gaode_api_key = "acfdf3007ee8263d577e40ee29427e75"
 gaode_api_url = "https://restapi.amap.com/v3/geocode/geo?parameters"
 
+def valid(filename):
+    #验证
+    wb = xlrd.open_workbook_xls(filename)
+    sheet = wb.sheet_by_index(0)
+    rows = sheet.nrows
+    err_list = []
+    for i in range(2, rows):
+        data = sheet.row_values(i)
+        if not data[9]:
+            if not data[0] and data[2]:
+                err_msg = f"第{i}行数据错误，缺少地址信息"
+                err_list.append(err_msg)
+            continue
+        continue
+    return err_list
+
 def type_judge(data):
     """扶梯类型判断"""
     if data == "F/SW":

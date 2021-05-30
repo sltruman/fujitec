@@ -7,6 +7,9 @@ from pathlib import Path
 from flask import Flask, request as req
 from flask_cors import CORS
 import xlrd
+import threading
+
+validing = None
 
 os.makedirs(f'db', exist_ok=True)
 
@@ -44,7 +47,7 @@ from werkzeug.utils import secure_filename
 app.config['UPLOAD_FOLDER'] = 'static/data/'
 os.makedirs(app.config['UPLOAD_FOLDER'], exist_ok=True)
 
-@app.route('/fujitec/elevators-valid', methods=['POST'])
+@app.route('/fujitec/elevators-sync', methods=['POST'])
 def elevators_valid():
     if 'file' not in req.files:
         return {'val': None, 'err': '没有文件部分!'}
@@ -57,44 +60,16 @@ def elevators_valid():
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
         import test
-        test.excel_to_json('../doc/电梯信息0527.xls')
-
-@app.route('/fujitec/elevators-sync', methods=['POST'])
-def elevators_sync():
-    if 'file' not in req.files:
-        return {'val': None, 'err': '没有文件部分!'}
-
-    file = req.files['file']
-    if file.filename == '':
-        return {'val': None, 'err': '没有选择文件!'}
-    if file:
-        filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-
-        #验证
-        wb = xlrd.open_workbook_xls(filename)
-        sheet = wb.sheet_by_index(0)
-        rows = sheet.nrows
-        err_list = []
-        for i in range(2, rows):
-            data = sheet.row_values(i)
-            if not data[9]:
-                if not data[0] and data[2]:
-                    err_msg = f"第{i}行数据错误，缺少地址信息"
-                    err_list.append(err_msg)
-                continue
-            continue
-        if len(err_list) > 0:
-            return {
-                "val": False,
-                "err": err_list
-            }
-        else:
-            return {
-                "val": True,
-                "err": None
-            }
         
+        validing = threading.Thread(target=test.excel_to_json,args=['static/data/电梯信息.xls'])
+        validing.start()
+        
+        return {'val':True, 'err':None}
+
+@app.route('/fujitec/elevators-sync-status', methods=['POST'])
+def elevators_sync_status():
+    return {'val':'同步中...' if validing and validing.is_alive() else '同步结束','err':None}
+    
         
 print('http://localhost:60000/')
 app.run(host='0.0.0.0', port=60000)
