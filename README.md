@@ -52,8 +52,6 @@ GET http://dungbeetles.xyz:60000/fujitec/elevators
 {
     "err":null,
     "val":[{
-            "longitude":112.74692048046873,
-            "latitude":28.183942807485778,
             "location":"长沙华润置地广场一期",    #电梯位置
             "elevators":[{ 	# 电梯数2部
                     "city":"长沙",
@@ -76,8 +74,6 @@ GET http://dungbeetles.xyz:60000/fujitec/elevators
                 }
             ]
         },{
-        	"longitude":112.74692048046873,
-        	"latitude":28.183942807485778,
         	"location":"株洲金轮时代广场",  
         	"elevators":[{	#电梯数1部
                 "longitude":112.74692048046873,
@@ -118,23 +114,16 @@ PUT http://dungbeetles.xyz:60000/fujitec/elevator-set
 
 [![img](./prototype-design/数据管理.png)
 
-## 电梯信息-验证
+## 电梯信息-同步-状态
 
 ```python
 ###验证电梯数据是否符合要求
-POST http://dungbeetles.xyz:60000/fujitec/elevators_sync
-Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
-#输入
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="file"; filename="电梯信息.xls"
-Content-Type: application/octet-stream
+GET http://dungbeetles.xyz:60000/fujitec/elevators-sync-status
 
-< C:\Users\SLTru\Desktop\fujitec\doc\电梯信息0527.xls
-------WebKitFormBoundary7MA4YWxkTrZu0gW--
 #输出
 {
     "err":null,		#失败返回明确的错误信息
-    "val":true 		#true：格式正确，false：格式错误
+    "val":'同步结束！'
 }
 ```
 
@@ -142,8 +131,9 @@ Content-Type: application/octet-stream
 
 ```python
 ###同步电梯数据到json文件数据
-POST http://dungbeetles.xyz:60000/fujitec/elevators-valid
+POST http://dungbeetles.xyz:60000/fujitec/elevators-sync
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
 #输入
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="file"; filename="电梯信息.xls"
@@ -154,7 +144,7 @@ Content-Type: application/octet-stream
 #输出
 {
     "err":null, 	#失败返回明确的错误信息
-    "val":true 		#true：同步成功，false：同步失败
+    "val":true 		#true：开始同步，false：无法同步
 }
 ```
 

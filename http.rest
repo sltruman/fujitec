@@ -3,6 +3,7 @@ GET http://dungbeetles.xyz:60000/fujitec/elevators
 
 ### 修改一台电梯信息
 PUT http://dungbeetles.xyz:60000/fujitec/elevator-set
+
 #输入
 {
     "location":"长沙华润置地广场一期",  
@@ -14,26 +15,17 @@ PUT http://dungbeetles.xyz:60000/fujitec/elevator-set
 }
 
 ###同步电梯数据到json文件数据
-POST http://dungbeetles.xyz:60000/fujitec/elevators_sync
+POST http://dungbeetles.xyz:60000/fujitec/elevators-sync
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 #输入
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="file"; filename="电梯信息.xls"
+Content-Disposition: form-data; name="file"; filename="elevators.xls"
 Content-Type: application/octet-stream
 
 < C:\Users\SLTru\Desktop\fujitec\doc\电梯信息0527.xls
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 
-###验证电梯数据是否符合要求
-POST http://dungbeetles.xyz:60000/fujitec/elevators-valid
-Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
-
-------WebKitFormBoundary7MA4YWxkTrZu0gW
-Content-Disposition: form-data; name="file"; filename="电梯信息.xls"
-Content-Type: application/octet-stream
-
-< C:\Users\SLTru\Desktop\fujitec\doc\电梯信息0527.xls
-------WebKitFormBoundary7MA4YWxkTrZu0gW--
-
+###同步状态
+GET http://dungbeetles.xyz:60000/fujitec/elevators-sync-status
