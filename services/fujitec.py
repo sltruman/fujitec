@@ -98,9 +98,9 @@ def elevators_sync_status():
 
     try:
         with open(f'db/primary.json', "r",encoding='utf-8') as f:
-            primary = json.load(f, ensure_ascii=False, indent=4)
+            primary = json.load(f)
     except:
-        pass
+        traceback.print_exc()
     return {'val':primary,'err':None}
         
 print('http://localhost:60000/')
