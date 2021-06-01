@@ -51,21 +51,18 @@ GET http://dungbeetles.xyz:60000/fujitec/elevators
 #输出
 {
     "err":null,
-    "val":[{
-            "location":"长沙华润置地广场一期",    #电梯位置
+    "val":[{       
+        	"city":"长沙",
+            "longitude":112.74692048046873,
+            "latitude":28.183942807485778,
+            "location":"华润置地广场一期",    #电梯位置
             "elevators":[{ 	# 电梯数2部
-                    "city":"长沙",
-                    "longitude":112.74692048046873,
-                    "latitude":28.183942807485778,
                     "id":"XAA9548",			 #电梯编号，独一无二
                     "type":"其它类型梯",		#电梯类型 扶梯：F/SW，升降梯：F/HS，其它类型梯：默认
                     "maintaining_type":"第三方保养", #保养类型 代理商保养，第三方保养，我方保养，即将我方保养
                     "maintaining_state":"已保养", #保养状态 未保养，已保养：默认
-                    "service_life":"10年"   #使用年限 免保结束日后开始计算 
+                    "service_life":"10"   #使用年限 免保结束日后开始计算 
                 },{
-                    "city":"长沙",
-                    "longitude":112.74692048046873,
-                    "latitude":28.183942807485778,
                     "id":"XAA9549",			
                     "type":"其它类型梯",		
                     "maintaining_type":"我方保养",
@@ -74,15 +71,16 @@ GET http://dungbeetles.xyz:60000/fujitec/elevators
                 }
             ]
         },{
-        	"location":"株洲金轮时代广场",  
+        	"city":"株洲",
+            "longitude":112.74692048046873,
+            "latitude":28.183942807485778,
+        	"location":"金轮时代广场",  
         	"elevators":[{	#电梯数1部
-                "longitude":112.74692048046873,
-                "latitude":28.183942807485778,
             	"id":"XAA9550",
                 "type":"升降梯",
                 "maintaining_type":"第三方保养",
                 "maintaining_state":"未保养",
-                "service_life":"10年"
+                "service_life":"10"
             }]
         }
     ]
@@ -116,20 +114,25 @@ PUT http://dungbeetles.xyz:60000/fujitec/elevator-set
 
 ## 电梯信息-同步-状态
 
-```python
-###验证电梯数据是否符合要求
+```bash
+###数据信息
 GET http://dungbeetles.xyz:60000/fujitec/elevators-sync-status
 
 #输出
 {
     "err":null,		#失败返回明确的错误信息
-    "val":'同步结束！'
+    "val": {
+        date:"2010-06-01", 	#同步时间
+        count:4000, 	    #数据量
+        status:'syncing',  	# syncing：同步中，synced：同步结束
+        errors:[]			#同步失败的数据
+    }
 }
 ```
 
 ## 电梯信息-同步
 
-```python
+```bash
 ###同步电梯数据到json文件数据
 POST http://dungbeetles.xyz:60000/fujitec/elevators-sync
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
@@ -150,7 +153,7 @@ Content-Type: application/octet-stream
 
 ### JSON数据库目录结构
 
-```python
+```bash
 .
 ..
 │  fujitec.py #后端接口服务
@@ -172,10 +175,10 @@ Content-Type: application/octet-stream
 
 ```python
 # data/电梯信息.xls
-地区,工程号,工程名,机种类别,维保状态,保养公司名,免保开始日,免保结束日,免保期限,项目地址
-长沙,AEA1143,湖南长沙晚报,F/HS,代理商有偿保养,长沙富士达,2002-12-31,2003-12-31,12个月, 	
-长沙,EXF5072,湖南长沙晚报,F/J,代理商有偿保养,长沙富士达,2000-1-1,2001-1-1,12个月, 
-长沙,KAX2217,长沙房地产交易市场,F/SW,停用,不明,2007-5-22,2008-5-22,12个月, 	
+省份	地区	工程号	工程名	机种类别	维保状态	保养公司名	免保开始日	免保结束日	免保期限	项目地址
+湖南	长沙	AEA1143	湖南长沙晚报	F/HS	代理商有偿保养	长沙富士达	2002-12-31	2003-12-31	12个月	
+湖南	长沙	AEA1144	湖南长沙晚报	F/HS	代理商有偿保养	长沙富士达	2002-12-31	2003-12-31	12个月	
+湖南	长沙	AEA1145	湖南长沙晚报	F/HS	代理商有偿保养	长沙富士达	2001-7-10	2002-7-10	12个月	
 ```
 
 ### 电梯信息-JSON格式

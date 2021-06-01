@@ -9,8 +9,6 @@ from flask_cors import CORS
 import xlrd
 import threading
 
-validing = None
-
 os.makedirs(f'db', exist_ok=True)
 
 app = Flask(__name__, '')
@@ -19,10 +17,28 @@ app.config['JSON_AS_ASCII'] = False
 
 @app.route('/fujitec/elevators', methods=['GET'])
 def elevators():
+    primary = {
+        'locations':{},
+        'status':'syncing',
+        'date':'2021-06-01',
+        'count':0,
+        'errors':[]
+    }
+
+    try:
+        with open(f'db/primary.json', "r",encoding='utf-8') as f:
+            primary = json.load(f)
+    except:
+        traceback.print_exc()
+
     val = []
     for location in os.listdir('db'):
-        elevators = []
+        try:
+            longitude,latitude,province,city = primary['locations'][location]
+        except:
+            continue
 
+        elevators = []
         for id in os.listdir(f'db/{location}'):
             try:
                 with open(f'db/{location}/{id}',encoding='utf-8') as f:
@@ -32,9 +48,14 @@ def elevators():
                 continue
             except UnicodeDecodeError:
                 continue
+
         val.append({
-            'location':location,
-            'elevators':elevators
+                'longitude':longitude,
+                'latitude':latitude,
+                'province':province,
+                'city':city,
+                'location':location,
+                'elevators':elevators
             })
     return {'val': val, 'err': None}
 
@@ -59,20 +80,28 @@ def elevators_sync():
         filename = secure_filename(file.filename)
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        import test
-  
-        global validing     
-        validing = threading.Thread(target=test.excel_to_json,args=[f'static/data/{filename}'])
+        import db
+        validing = threading.Thread(target=db.sync,args=[f'static/data/{filename}'])
         validing.start()
         
         return {'val':True, 'err':None}
 
 @app.route('/fujitec/elevators-sync-status', methods=['GET'])
 def elevators_sync_status():
-    global validing
-    print(validing)
-    return {'val':'同步中...' if validing and validing.is_alive() else '同步结束','err':None}
-    
+    primary = {
+        'locations':{},
+        'status':'syncing',
+        'date':'2021-06-01',
+        'count':0,
+        'errors':[]
+    }
+
+    try:
+        with open(f'db/primary.json', "r",encoding='utf-8') as f:
+            primary = json.load(f, ensure_ascii=False, indent=4)
+    except:
+        pass
+    return {'val':primary,'err':None}
         
 print('http://localhost:60000/')
 app.run(host='0.0.0.0', port=60000)
