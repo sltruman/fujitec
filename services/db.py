@@ -90,4 +90,4 @@ def sync(file_path):
     with open(f'db/primary.json', "w",encoding='utf-8') as f:
         json.dump(primary, f, ensure_ascii=False, indent=4)
 
-sync(r'C:\Users\SLTru\Desktop\fujitec\doc\电梯信息0601.xls')
+#sync(r'C:\Users\SLTru\Desktop\fujitec\doc\电梯信息0601.xls')
