@@ -1,11 +1,26 @@
 <template>
   <div class="main">
     <van-row type="flex" justify="center">
-      <van-col span="18" class="cell">
-        <a>{{ pathName }}</a>
-      </van-col>
+      <!-- <van-col span="18" class="cell">
+        <a>请先选择文件，然后在数据同步</a>
+      </van-col> -->
     </van-row>
-    <van-row type="flex" justify="center">
+    <!--     
+    <van-row style="margin-top: 2rem">
+      <van-grid :column-num="1">
+        <van-grid-item
+          v-for="value in 1"
+          :key="value"
+          icon="photo-o"
+          :text="pathName"
+        />
+      </van-grid>
+      <van-grid direction="horizontal" :column-num="1">
+        <van-grid-item icon="plus" text="上传文件"> </van-grid-item>
+      </van-grid>
+    </van-row>
+
+    <van-row type="flex" justify="center" style="margin-top: 0.5rem">
       <van-col span="9" class="cell">
         <van-uploader
           :after-read="afterRead"
@@ -16,21 +31,32 @@
           <van-button icon="plus" type="primary">选择文件</van-button>
         </van-uploader>
       </van-col>
+    </van-row> -->
+
+    <van-row type="flex" justify="center" style="margin-top: 1rem">
+      <van-uploader
+        v-model="fileList"
+        :after-read="afterRead"
+        :before-read="beforeRead"
+        :max-size="10485760"
+        upload-icon="plus"
+        max-count="1"
+        upload-text="点击选择文件"
+        accept=".xls,.xlsx"
+      />
     </van-row>
-    <van-row type="flex" justify="center">
+    <van-row type="flex" justify="center" style="margin-top: 1rem">
       <van-col span="9" class="cell">
-        <van-button icon="plus" type="primary">数据验证</van-button>
-      </van-col>
-      <van-col span="9" class="cell">
-        <van-button icon="plus" type="primary">数据同步</van-button>
+        <van-button type="primary" @click="submit">数据同步</van-button>
       </van-col>
     </van-row>
+    <van-empty description="文件上传失败" />
   </div>
 </template>
 
 <script>
 import { getTest } from '../utils/api'
-import { NavBar, Button, Icon, Uploader, Toast } from 'vant'
+import { NavBar, Button, Icon, Uploader, Toast, Grid, GridItem, Image as VanImage, Empty } from 'vant'
 
 export default {
   name: `lift-data-mgmt`,
@@ -39,11 +65,16 @@ export default {
     [Icon.name]: Icon,
     [Uploader.name]: Uploader,
     [Toast.name]: Toast,
-    [NavBar.name]: NavBar
+    [GridItem.name]: GridItem,
+    [Grid.name]: Grid,
+    [NavBar.name]: NavBar,
+    [Empty.name]: Empty,
+    [VanImage.name]: VanImage
   },
   data() {
     return {
-      pathName: ''
+      pathName: '',
+      fileList: [],
     }
   },
   async created() {
@@ -67,6 +98,11 @@ export default {
       // 此时可以自行将文件上传至服务器
       console.log(file);
     },
+    submit() {
+      if (!this.fileList || this.fileList.length <= 0) {
+        Toast('请先选择文件，然后在数据同步')
+      }
+    }
   }
 }
 </script>
