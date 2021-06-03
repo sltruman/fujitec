@@ -43,7 +43,15 @@ def elevators_less():
         except: continue
 
         elevators = os.listdir(f'db/{location}')
-        val.append([longitude,latitude,len(elevators),'已保养',location,province,city])
+        maintaining_type = '即将我方保养'
+        try:
+            with open(f'db/{location}/{elevators[0]}',encoding='utf-8') as f:
+                elevator = json.loads(f.read())
+                maintaining_type = elevator['maintaining_type']
+        except json.JSONDecodeError: continue
+        except UnicodeDecodeError: continue
+
+        val.append([longitude,latitude,len(elevators),maintaining_type,location,province,city])
     return {'val': val, 'err': None}
 
 @app.route('/fujitec/elevators', methods=['GET'])
