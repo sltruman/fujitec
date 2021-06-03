@@ -4,14 +4,16 @@
 		<van-form>
 			<van-field name="stepper" label="使用期限">
 				<template #input>
-					<van-stepper v-model="form.service_life" min="1" max="100" integer />
+					<van-stepper v-model="form.service_life" :min="0" :max="100" integer />
 				</template>
 			</van-field>
-			<van-field readonly clickable name="picker" label="类型" :value="form.type" placeholder="请选择" @click="typePicker = true" />
-			<van-popup v-model="typePicker" position="bottom"><van-picker show-toolbar :columns="typeColumns" @confirm="typeConfirm" @cancel="typePicker = false" /></van-popup>
+			<van-field readonly clickable name="picker" label="保养类型" :value="form.type" placeholder="请选择" @click="typePicker = true" />
+			<van-popup v-model="typePicker" position="bottom">
+				<van-picker show-toolbar :default-index="form.type" :columns="typeColumns" @confirm="typeConfirm" @cancel="typePicker = false" />
+			</van-popup>
 			<van-field readonly clickable name="picker" label="维护方" :value="form.maintaining_type" placeholder="请选择" @click="maintainTypePicker = true" />
 			<van-popup v-model="maintainTypePicker" position="bottom">
-				<van-picker show-toolbar :columns="maintainTypeColums" @confirm="maintainConfirm" @cancel="maintainTypePicker = false" />
+				<van-picker show-toolbar :columns="maintainTypeColums" :default-index="form.maintaining_type" @confirm="maintainConfirm" @cancel="maintainTypePicker = false" />
 			</van-popup>
 			<div style="margin: 16px;"><van-button block type="info" @click="submitOk">保存</van-button></div>
 		</van-form>
@@ -41,10 +43,10 @@ export default {
 				type: '',
 				maintaining_type: ''
 			},
-			typeColumns: ['直升梯', '扶梯'],
+			typeColumns: ['升降梯', '扶梯'],
 			typePicker: false,
 			maintainTypePicker: false,
-			maintainTypeColums: ['我方保养', '第三方保养', '即将我方保养'],
+			maintainTypeColums: ['我方保养', '代理商保养', '即将我方保养', '第三方保养'],
 			editVisible: false
 		};
 	},
@@ -62,12 +64,15 @@ export default {
 		},
 		submitOk() {
 			let params = this.form;
-			params.service_life=`${params.service_life}年`;
-			this.$http.setElevators(params).then(() => {
-				this.$emit('change');
-			}).catch(()=>{
-				this.$emit('change');
-			});
+			this.$emit('change', params);
+			// this.$http
+			// 	.setElevators(params)
+			// 	.then(() => {
+			// 		this.$emit('change', params);
+			// 	})
+			// 	.catch(() => {
+					
+			// 	});
 		}
 	}
 };

@@ -5,20 +5,22 @@ import VueAMap from 'vue-amap';
 import http from './request/api'
 import tools from './utils/tools.js'
 import {
-  router
+	router
 } from './router';
 import {
-  NavBar,
-  Icon,
-  Popover,
+	NavBar,
+	Icon,
+	Popover,
 	popup,
-  Form,
-  Field,
+	Form,
+	Field,
 	Picker,
 	Stepper,
 	Button,
 	List,
-	Cell
+	Cell,
+	Loading,
+	Progress
 } from 'vant';
 
 // 全局注册
@@ -33,17 +35,21 @@ Vue.use(Stepper);
 Vue.use(Button);
 Vue.use(List);
 Vue.use(Cell);
+Vue.use(Loading);
+Vue.use(Progress);
 Vue.use(VueAMap);
 
 VueAMap.initAMapApiLoader({
-  key: '466ba813c8cfcc75f1638484ce44643b',
-  plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
-  v: '1.4.4'
+	key: '466ba813c8cfcc75f1638484ce44643b',
+	plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar',
+		'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor', 'AMap.Geolocation', 'Geocoder'
+	],
+	v: '1.4.4'
 });
 Vue.prototype.$http = http
-Vue.prototype.$tools = tools
+Vue.prototype.$tools = tools;
 new Vue({
-  router,
-  el: '#app',
-  render: h => h(App)
+	router,
+	el: '#app',
+	render: h => h(App)
 });
