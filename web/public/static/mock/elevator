@@ -1,0 +1,58 @@
+{
+	"err": null,
+	"val": [{
+			"city": "长沙",
+			"id": "AEA1144",
+			"latitude": "28.208957",
+			"longitude": "113.018457",
+			"maintaining_state": "已保养",
+			"maintaining_type": "代理商保养",
+			"service_life": 19,
+			"type": "升降梯"
+		},
+		{
+			"city": "长沙",
+			"id": "AEA1145",
+			"latitude": "28.208957",
+			"longitude": "113.018457",
+			"maintaining_state": "已保养",
+			"maintaining_type": "代理商保养",
+			"service_life": 20,
+			"type": "升降梯"
+		},
+		{
+			"city": "长沙",
+			"id": "EXF5072",
+			"latitude": "28.208957",
+			"longitude": "113.018457",
+			"maintaining_state": "已保养",
+			"maintaining_type": "代理商保养",
+			"service_life": 21,
+			"type": "其它类型梯"
+		},
+		{
+			"city": "长沙",
+			"id": "EXF5073",
+			"maintaining_state": "已保养",
+			"maintaining_type": "代理商保养",
+			"service_life": 21,
+			"type": "其它类型梯"
+		},
+		{
+			"city": "长沙",
+			"id": "EXF5074",
+			"maintaining_state": "已保养",
+			"maintaining_type": "代理商保养",
+			"service_life": 21,
+			"type": "其它类型梯"
+		},
+		{
+			"city": "长沙",
+			"id": "EXF5075",
+			"maintaining_state": "已保养",
+			"maintaining_type": "代理商保养",
+			"service_life": 21,
+			"type": "其它类型梯"
+		}
+	]
+}
