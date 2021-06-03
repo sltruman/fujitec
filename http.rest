@@ -1,3 +1,15 @@
+### 所有电梯信息索引
+GET http://dungbeetles.xyz:60000/fujitec/elevator?location=奥克大厦
+
+### 所有电梯信息索引
+GET http://localhost:60000/fujitec/elevator?location=奥克大厦
+
+### 所有电梯信息索引
+GET http://dungbeetles.xyz:60000/fujitec/elevators-less
+
+### 所有电梯信息索引
+GET http://localhost:60000/fujitec/elevators-less
+
 ### 所有电梯信息
 GET http://dungbeetles.xyz:60000/fujitec/elevators
 
@@ -26,6 +38,26 @@ Content-Type: application/octet-stream
 < C:\Users\SLTru\Desktop\fujitec\doc\电梯信息0601.xls
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
+###同步电梯数据到json文件数据
+POST http://localhost:60000/fujitec/elevators-sync
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+#输入
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="file"; filename="elevators.xls"
+Content-Type: application/octet-stream
+
+< C:\Users\SLTru\Desktop\fujitec\doc\电梯信息0601.xls
+------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
 ###同步状态
 GET http://dungbeetles.xyz:60000/fujitec/elevators-sync-status
+
+###同步状态
+GET http://localhost:60000/fujitec/elevators-sync-status
+
+###数据信息
+GET http://dungbeetles.xyz:60000/fujitec/elevators-sync-date
+
+###数据信息
+GET http://localhost:60000/fujitec/elevators-sync-date

@@ -42,7 +42,53 @@
 
 ![img](./prototype-design/APP.png)
 
-## 电梯-查询
+## 电梯信息-查询所有-简洁
+
+```python
+### 所有电梯信息
+GET http://dungbeetles.xyz:60000/fujitec/elevators-less
+#输入
+#输出
+{
+    "err":null,
+    "val":[
+        [112.74692048046873,28.183942807485778,60,"已保养","华润置地广场一期","长沙","湖南"],
+        [112.74692048046873,28.183942807485778,5,"已保养","华润置地广场一期","长沙","湖南"]
+    ]
+}
+```
+
+## 电梯信息-查询
+
+```python
+### 所有电梯信息
+GET http://dungbeetles.xyz:60000/fujitec/elevator
+#输入
+{
+    "location":"长沙华润置地广场一期"
+}
+#输出
+{
+    "err":null,
+    "val":[
+        { 	# 电梯数2部
+            "id":"XAA9548",			 #电梯编号，独一无二
+            "type":"其它类型梯",		#电梯类型 扶梯：F/SW，升降梯：F/HS，其它类型梯：默认
+            "maintaining_type":"第三方保养", #保养类型 代理商保养，第三方保养，我方保养，即将我方保养
+            "maintaining_state":"已保养", #保养状态 未保养，已保养：默认
+            "service_life":"10"   #使用年限 免保结束日后开始计算 
+        },{
+            "id":"XAA9549",			
+            "type":"其它类型梯",		
+            "maintaining_type":"我方保养",
+            "maintaining_state":"已保养",
+            "service_life":"10年"
+        }
+    ]
+}
+```
+
+## 电梯信息-查询所有
 
 ```python
 ### 所有电梯信息
@@ -87,7 +133,7 @@ GET http://dungbeetles.xyz:60000/fujitec/elevators
 }
 ```
 
-## 电梯-修改
+## 电梯信息-修改
 
 ```python
 ### 修改一台电梯信息
@@ -111,6 +157,21 @@ PUT http://dungbeetles.xyz:60000/fujitec/elevator-set
 # 前端-数据管理
 
 [![img](./prototype-design/数据管理.png)
+
+## 电梯信息-同步-日期
+
+```python
+###数据信息
+GET http://dungbeetles.xyz:60000/fujitec/elevators-sync-date
+
+#输出
+{
+    "err":null,		#失败返回明确的错误信息
+    "val": "2010-06-01" 	#同步时间
+}
+```
+
+
 
 ## 电梯信息-同步-状态
 
