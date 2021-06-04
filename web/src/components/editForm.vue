@@ -64,15 +64,14 @@ export default {
 		},
 		submitOk() {
 			let params = this.form;
-			this.$emit('change', params);
-			// this.$http
-			// 	.setElevators(params)
-			// 	.then(() => {
-			// 		this.$emit('change', params);
-			// 	})
-			// 	.catch(() => {
-					
-			// 	});
+			this.$http
+				.setElevators(params)
+				.then(() => {
+					this.$emit('change', params);
+				})
+				.catch(() => {
+					this.$emit('change', params);
+				});
 		}
 	}
 };
