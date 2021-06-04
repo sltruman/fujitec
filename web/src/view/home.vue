@@ -102,30 +102,36 @@ export default {
 		},
 		//获取同步数据状态
 		getSyncedStatus() {
-			this.$http.getSyncedStatus().then(res => {
-				let lastDate = localStorage.getItem('lastDate');
-				if (res.data.val != lastDate) {
-					this.syncLoading = true;
-					localStorage.removeItem('elevators');
-					localStorage.setItem('lastDate', res.data.val);
-					this.getElevatorsStatus();
-				} else {
+			this.$http
+				.getSyncedStatus()
+				.then(res => {
+					
+					let lastDate = localStorage.getItem('lastDate');
+					if (res.data.val != lastDate) {
+						localStorage.removeItem('elevators');
+						localStorage.setItem('lastDate', res.data.val);
+						this.getElevatorsStatus();
+					} else {
+						this.positionLoading = true;
+						this.getLocalStorage();
+					}
+				})
+				.catch(() => {
 					this.syncLoading = false;
-					this.positionLoading = true;
-					this.getLocalStorage();
-				}
-			});
+				});
 		},
 		//获取本地数据
 		getLocalStorage() {
 			this.markerGroups = JSON.parse(localStorage.getItem('elevators'));
+			this.syncLoading = false;
 		},
 		//获取地图标识点
 		getElevatorsStatus() {
 			this.$http.getElevatorsStatus().then(res => {
+				this.positionLoading = true;
 				localStorage.setItem('elevators', JSON.stringify(res.data.val));
 				this.getLocalStorage();
-			});
+			})
 		},
 		//显示数字图标
 		getContentHtml(val) {
