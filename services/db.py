@@ -29,8 +29,8 @@ def sync(file_path):
     for i,row  in pd.read_excel(file_path,parse_dates=True,keep_default_na=False).iterrows():
         locations = primary['locations']
         
-        location = row['项目地址'] if row['项目地址'] else row['工程名']
-        location = location.replace(' ','')
+        location = row['项目地址'] if row['项目地址'].strip() else row['工程名']
+        location = location.strip()
         os.makedirs(f'db/{location}',exist_ok=True)
 
         if location in primary['errors']:
@@ -104,4 +104,4 @@ def sync(file_path):
     with open(f'db/primary.json', "w",encoding='utf-8') as f:
         json.dump(primary, f, ensure_ascii=False, indent=4)
 
-#sync(r'C:\Users\SLTru\Desktop\fujitec\doc\电梯信息0601.xls')
+#sync(r'..\doc\电梯信息0601.xls')
