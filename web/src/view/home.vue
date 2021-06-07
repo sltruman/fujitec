@@ -63,8 +63,8 @@ export default {
 							o.getCurrentPosition((status, result) => {
 								if (result && result.position) {
 									self.center = [result.position.lng, result.position.lat]; //设置坐标
-									self.positionLoading = false;
 								}
+                self.positionLoading = false;
 							});
 						}
 					}
