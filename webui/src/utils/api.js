@@ -11,3 +11,12 @@ export const getTest = queryData => request({
   method: 'get',
   data: queryData
 })
+
+export const uploadurl = 'http://dungbeetles.xyz:60000/fujitec/elevators-sync'
+
+export const upload = postData => ({
+  url: uploadurl,
+  method: 'post',
+  data: postData
+
+})
