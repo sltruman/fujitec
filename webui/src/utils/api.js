@@ -13,6 +13,7 @@ export const getTest = queryData => request({
 })
 
 export const uploadurl = 'http://dungbeetles.xyz:60000/fujitec/elevators-sync'
+// export const uploadurl = '/service/fujitec/elevators-sync'
 
 export const upload = postData => ({
   url: uploadurl,
