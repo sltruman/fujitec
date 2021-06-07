@@ -19,7 +19,8 @@ def elevator():
     location = req.args['location']
     
     elevators = []
-    for id in os.listdir(f'db/{location}'):
+
+    for id in os.listdir(f'db/{location}') if os.path.exists(f'db/{location}') else []:
         try:
             with open(f'db/{location}/{id}',encoding='utf-8') as f:
                 elevator = json.loads(f.read())
@@ -118,7 +119,7 @@ def elevators_sync():
 def elevators_sync_status():
     primary = {
         'locations':{},
-        'status':'syncing',
+        'status':'synced',
         'date':'2021-06-01',
         'count':0,
         'errors':[]

@@ -5,11 +5,12 @@ import pandas as pd
 import os
 import json
 import traceback
+import re
 
 def sync(file_path):
     primary = {
         'locations':{},
-        'status':'syncing',
+        'status':'synced',
         'date':'2021-06-01',
         'count':0,
         'errors':[]
@@ -23,7 +24,14 @@ def sync(file_path):
 
     for i,row  in pd.read_excel(file_path,parse_dates=True).iterrows():
         locations = primary['locations']
-        location = row['工程名']
+        
+        
+        location = row['项目地址'] if row['项目地址'] else row['工程名']
+
+        if re.match(r'.*#.*', location):
+            primary['errors'].append(location)
+            continue
+
         os.makedirs(f'db/{location}',exist_ok=True)
 
         if location in primary['errors']:
@@ -69,7 +77,7 @@ def sync(file_path):
             service_life = row['免保开始日']
             service_life = str(datetime.datetime.now().year - datetime.datetime.strptime(str(service_life),'%Y-%m-%d %H:%M:%S').year)
         except:
-            service_life = '不明'
+            service_life = '？'
         
         id = row['工程号']
 
