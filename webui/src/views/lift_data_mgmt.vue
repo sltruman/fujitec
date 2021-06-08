@@ -20,14 +20,18 @@
         <van-button type="primary" @click="submit">数据同步</van-button>
       </van-col>
     </van-row>
-    {{ msg }}
+<!--    <van-card-->
+<!--      title="同步状态"-->
+<!--      :desc="statusData.status"-->
+<!--      :num="statusData.count"-->
+<!--    />-->
     <!--    <van-empty description="文件上传失败"/>-->
   </div>
 </template>
 
 <script>
-import {getTest, uploadurl} from '../utils/api'
-import {NavBar, Button, Icon, Uploader, Toast, Grid, GridItem, Image as VanImage, Empty} from 'vant'
+import {uploadurl, syncDataStatus} from '../utils/api'
+import {NavBar, Button, Icon, Uploader, Toast, Grid, GridItem, Image as VanImage, Empty, Card} from 'vant'
 import axios from 'axios'
 
 export default {
@@ -41,6 +45,7 @@ export default {
     [Grid.name]: Grid,
     [NavBar.name]: NavBar,
     [Empty.name]: Empty,
+    [Card.name]: Card,
     [VanImage.name]: VanImage
   },
   data () {
@@ -48,12 +53,22 @@ export default {
       pathName: '',
       fileList: [],
       fileData: null,
-      msg: ''
+      msg: '',
+      statusData: {
+        count: 0,
+        date: null,
+        status: '',
+        errors: []
+      }
     }
   },
-  async created () {
-    const a = await getTest('cscb001')
-    console.log(a)
+  created () {
+    syncDataStatus().then(res => {
+      if (res) {
+        this.statusData = res.var
+        console.log(this.statusData)
+      }
+    })
   },
   methods: {
     beforeRead (file) {
@@ -78,22 +93,26 @@ export default {
         Toast('请先选择文件，然后在数据同步')
         return
       }
-      this.update()
+      this.upd()
     },
-    update () {
-      let file = this.fileData
-      let param = new FormData()
-      file.filename = '电梯信息.xls'
-      param.append('file', file)
-      console.log(param.get('file'))
-      let config = {
-        headers: {'Content-Type': 'multipart/form-data'}
-      }
-      axios.post(uploadurl, param, config)
-        .then(response => {
-          this.msg = response.err
-          console.log(response.data)
-        })
+    upd () {
+      let formData = new FormData()
+      formData.append('file', new Blob([this.fileList]))
+      axios({
+        method: 'post',
+        url: uploadurl,
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data' // 关键
+        }
+      }).then((res) => {
+        if (res.data.val) {
+          Toast('文件上传成功')
+        } else {
+          Toast('文件上传失败：' + res.data.err)
+        }
+        this.fileList = []
+      })
     }
   }
 }

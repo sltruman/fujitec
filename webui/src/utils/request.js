@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const http = axios.create({
+  baseURL: '',
   timeout: 60 * 5 * 1000
 })
 http.interceptors.request.use(
