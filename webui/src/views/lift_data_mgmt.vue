@@ -21,7 +21,7 @@
     </van-row>
     <van-collapse v-if="statusData.status" v-model="activeNames">
       <van-collapse-item name="1" title="同步状态" :value="getStatus()">
-        <van-list
+        <!-- <van-list
           v-model="loading"
           :finished="finished"
           finished-text="没有更多了"
@@ -29,7 +29,6 @@
           @load="onLoad"
         >
           <van-cell title="成功数量" :value="statusData.count" />
-          <!-- <van-cell title="失败数量" :value="statusData.errors.length" /> -->
           <van-divider
             :style="{
               color: '#1989fa',
@@ -39,7 +38,18 @@
             >无法定位的地址</van-divider
           >
           <van-cell v-for="item in list" :key="item" :title="item" />
-        </van-list>
+        </van-list> -->
+        <van-cell title="成功数量" :value="statusData.count" />
+        <!-- <van-cell title="失败数量" :value="statusData.errors.length" /> -->
+        <van-divider
+          :style="{
+            color: '#1989fa',
+            borderColor: '#1989fa',
+            padding: '0 16px',
+          }"
+          >无法定位的地址</van-divider
+        >
+        <van-cell v-for="item in statusData.errors" :key="item" :title="item" />
       </van-collapse-item>
     </van-collapse>
   </div>
