@@ -1,7 +1,6 @@
 <template>
   <div class="main">
-    <van-row type="flex" justify="center">
-    </van-row>
+    <van-row type="flex" justify="center"> </van-row>
 
     <van-row type="flex" justify="center" style="margin-top: 1rem">
       <van-uploader
@@ -20,18 +19,39 @@
         <van-button type="primary" @click="submit">数据同步</van-button>
       </van-col>
     </van-row>
-<!--    <van-card-->
-<!--      title="同步状态"-->
-<!--      :desc="statusData.status"-->
-<!--      :num="statusData.count"-->
-<!--    />-->
-    <!--    <van-empty description="文件上传失败"/>-->
+    <van-collapse v-if="statusData.status" v-model="activeNames">
+      <van-collapse-item name="1" title="同步状态" :value="getStatus()">
+        <van-list
+          v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          loading-text="加载上传失败数据中..."
+          @load="onLoad"
+        >
+          <van-cell title="成功数量" :value="statusData.count" />
+          <!-- <van-cell title="失败数量" :value="statusData.errors.length" /> -->
+          <van-divider
+            :style="{
+              color: '#1989fa',
+              borderColor: '#1989fa',
+              padding: '0 16px',
+            }"
+            >无法定位的地址</van-divider
+          >
+          <van-cell v-for="item in list" :key="item" :title="item" />
+        </van-list>
+      </van-collapse-item>
+    </van-collapse>
   </div>
 </template>
 
 <script>
-import {uploadurl, syncDataStatus} from '../utils/api'
-import {NavBar, Button, Icon, Uploader, Toast, Grid, GridItem, Image as VanImage, Empty, Card} from 'vant'
+import { uploadurl, syncDataStatus } from '../utils/api'
+import {
+  NavBar, Button, Icon, Uploader, Toast, Grid, GridItem, Image as VanImage, Empty, Collapse, CollapseItem, Cell,
+  Row, Divider,
+  Col, List
+} from 'vant'
 import axios from 'axios'
 
 export default {
@@ -45,10 +65,16 @@ export default {
     [Grid.name]: Grid,
     [NavBar.name]: NavBar,
     [Empty.name]: Empty,
-    [Card.name]: Card,
+    [Collapse.name]: Collapse,
+    [CollapseItem.name]: CollapseItem,
+    [Row.name]: Row,
+    [Col.name]: Col,
+    [List.name]: List,
+    [Divider.name]: Divider,
+    [Cell.name]: Cell,
     [VanImage.name]: VanImage
   },
-  data () {
+  data() {
     return {
       pathName: '',
       fileList: [],
@@ -59,19 +85,32 @@ export default {
         date: null,
         status: '',
         errors: []
-      }
+      },
+      activeNames: [],
+      list: [],
+      loading: false,
+      finished: false,
     }
   },
-  created () {
-    syncDataStatus().then(res => {
-      if (res) {
-        this.statusData = res.var
-        console.log(this.statusData)
-      }
-    })
+  created() {
+    this.loadStatus()
   },
   methods: {
-    beforeRead (file) {
+    loadStatus() {
+      this.list = [];
+      this.statusData = {
+        count: 0,
+        date: null,
+        status: '',
+        errors: []
+      }
+      syncDataStatus().then(res => {
+        if (res) {
+          this.statusData = res.val
+        }
+      })
+    },
+    beforeRead(file) {
       // 上传之前校验
       if (file.size > 10485760) {
         Toast('上传文件大于10m')
@@ -84,18 +123,18 @@ export default {
       }
       return true
     },
-    afterRead (file) {
+    afterRead(file) {
       this.pathName = file.file.name
       this.fileData = file
     },
-    submit () {
+    submit() {
       if (!this.fileList || this.fileList.length <= 0) {
         Toast('请先选择文件，然后在数据同步')
         return
       }
       this.upd()
     },
-    upd () {
+    upd() {
       let formData = new FormData()
       formData.append('file', new Blob([this.fileList]))
       axios({
@@ -108,12 +147,48 @@ export default {
       }).then((res) => {
         if (res.data.val) {
           Toast('文件上传成功')
+          this.loadStatus()
         } else {
           Toast('文件上传失败：' + res.data.err)
         }
         this.fileList = []
       })
-    }
+    },
+    getStatus() {
+      if (this.statusData) {
+        switch (this.statusData.status) {
+          case 'synced':
+            return '同步结束'
+            break;
+          case 'syncing':
+            return '同步中'
+            break;
+          default:
+            return '1'
+
+        }
+      }
+    },
+    onLoad() {
+      // 异步更新数据
+      // setTimeout 仅做示例，真实场景中一般为 ajax 请求
+      setTimeout(() => {
+        for (let i = 0; i < 10; i++) {
+          if (this.list.length < this.statusData.errors.length) {
+            this.list.push(this.statusData.errors[this.list.length]);
+            break;
+          }
+        }
+
+        // 加载状态结束
+        this.loading = false;
+
+        // 数据全部加载完成
+        if (this.list.length >= this.statusData.errors.length) {
+          this.finished = true;
+        }
+      }, 1000);
+    },
   }
 }
 </script>
