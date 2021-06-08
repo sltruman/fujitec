@@ -20,14 +20,18 @@
         <van-button type="primary" @click="submit">数据同步</van-button>
       </van-col>
     </van-row>
-    {{ msg }}
+    <van-card
+      title="同步状态"
+      :desc="statusData.status"
+      :num="statusData.count"
+    />
     <!--    <van-empty description="文件上传失败"/>-->
   </div>
 </template>
 
 <script>
-import {uploadurl} from '../utils/api'
-import {NavBar, Button, Icon, Uploader, Toast, Grid, GridItem, Image as VanImage, Empty} from 'vant'
+import {uploadurl, syncDataStatus} from '../utils/api'
+import {NavBar, Button, Icon, Uploader, Toast, Grid, GridItem, Image as VanImage, Empty, Card} from 'vant'
 import axios from 'axios'
 
 export default {
@@ -41,6 +45,7 @@ export default {
     [Grid.name]: Grid,
     [NavBar.name]: NavBar,
     [Empty.name]: Empty,
+    [Card.name]: Card,
     [VanImage.name]: VanImage
   },
   data () {
@@ -48,10 +53,22 @@ export default {
       pathName: '',
       fileList: [],
       fileData: null,
-      msg: ''
+      msg: '',
+      statusData: {
+        count: 0,
+        date: null,
+        status: '',
+        errors: []
+      }
     }
   },
-  async created () {
+  created () {
+    syncDataStatus().then(res => {
+      if (res) {
+        this.statusData = res.var
+        console.log(this.statusData)
+      }
+    })
   },
   methods: {
     beforeRead (file) {

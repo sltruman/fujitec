@@ -12,4 +12,10 @@ export const getTest = queryData => request({
   data: queryData
 })
 
+export const syncDataStatus = queryData => request({
+  url: 'http://dungbeetles.xyz:60000/fujitec/elevators-sync-status',
+  method: 'get',
+  data: queryData
+})
+
 export const uploadurl = 'http://dungbeetles.xyz:60000/fujitec/elevators-sync'
