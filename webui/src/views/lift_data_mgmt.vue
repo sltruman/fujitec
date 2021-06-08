@@ -146,13 +146,16 @@ export default {
     },
     upd() {
       let formData = new FormData()
-      formData.append('file', new Blob([this.fileList]))
+      let bob = new Blob([this.fileData.file])
+
+      formData.append('file', bob, "elevators.xls")
       axios({
         method: 'post',
         url: uploadurl,
         data: formData,
         headers: {
-          'Content-Type': 'multipart/form-data' // 关键
+          'Content-Type': 'multipart/form-data',
+          'Content-Disposition': 'form-data; name="file"; filename="filename.xlsx"'
         }
       }).then((res) => {
         if (res.data.val) {
