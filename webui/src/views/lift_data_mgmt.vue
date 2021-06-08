@@ -20,11 +20,11 @@
         <van-button type="primary" @click="submit">数据同步</van-button>
       </van-col>
     </van-row>
-    <van-card
-      title="同步状态"
-      :desc="statusData.status"
-      :num="statusData.count"
-    />
+<!--    <van-card-->
+<!--      title="同步状态"-->
+<!--      :desc="statusData.status"-->
+<!--      :num="statusData.count"-->
+<!--    />-->
     <!--    <van-empty description="文件上传失败"/>-->
   </div>
 </template>
