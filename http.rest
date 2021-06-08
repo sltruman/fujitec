@@ -15,6 +15,21 @@ GET http://dungbeetles.xyz:60000/fujitec/elevators
 
 ### 修改一台电梯信息
 PUT http://dungbeetles.xyz:60000/fujitec/elevator-set
+Content-Type: application/json
+
+#输入
+{
+    "location":"长沙华润置地广场一期",  
+    "id":"XAA9548",						 	
+    "type":"其它类型梯",		
+    "maintaining_type":"我方保养",
+    "maintaining_state":"已保养",
+    "service_life":"10年"
+}
+
+### 修改一台电梯信息
+PUT http://localhost:60000/fujitec/elevator-set
+Content-Type: application/json
 
 #输入
 {

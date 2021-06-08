@@ -20,6 +20,7 @@ def sync(file_path):
         with open(f'db/primary.json', "r",encoding='utf-8') as f:
             primary = json.load(f)
             primary['status'] = 'synced'
+            primary['count'] = 0
     except:
         pass
 
