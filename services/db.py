@@ -79,7 +79,7 @@ def sync(file_path):
             service_life = row['免保开始日']
             service_life = str(datetime.datetime.now().year - datetime.datetime.strptime(str(service_life),'%Y-%m-%d %H:%M:%S').year)
         except:
-            service_life = '？'
+            service_life = '?'
         
         id = row['工程号']
 
