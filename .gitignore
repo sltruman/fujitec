@@ -104,3 +104,6 @@ dist
 .tern-port
 webui/dist.zip
 webui/www/
+services/db/
+services/static/data/
+services/__pycache__/db.cpython-38.pyc
