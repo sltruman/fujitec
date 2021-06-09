@@ -41,7 +41,8 @@ def sync(file_path):
             if location not in locations:
                 res = http.get(url='https://restapi.amap.com/v3/geocode/geo?parameters', params={
                     "address": location,
-                    "key": 'acfdf3007ee8263d577e40ee29427e75'
+                    "key": 'acfdf3007ee8263d577e40ee29427e75',
+                    'city': row['地区']
                 })
 
                 longitude,latitude = res.json()["geocodes"][0]['location'].split(",")
@@ -100,4 +101,4 @@ def sync(file_path):
     with open(f'db/primary.json', "w",encoding='utf-8') as f:
         json.dump(primary, f, ensure_ascii=False, indent=4)
 
-#sync(r'../doc/电梯信息0601.xls')
+# sync(r'../doc/电梯信息0601.xls')
