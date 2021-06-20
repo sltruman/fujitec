@@ -19,7 +19,8 @@ def elevator():
     location = req.args['location']
     
     elevators = []
-    for id in os.listdir(f'db/{location}'):
+
+    for id in os.listdir(f'db/{location}') if os.path.exists(f'db/{location}') else []:
         try:
             with open(f'db/{location}/{id}',encoding='utf-8') as f:
                 elevator = json.loads(f.read())
@@ -89,6 +90,27 @@ def elevators():
 
 @app.route('/fujitec/elevator-set', methods=['PUT'])
 def elevator_set():
+    args = req.get_json()
+    location = args['location']
+    id = args['id']
+    type = args['type']
+    maintaining_type = args['maintaining_type']
+    service_life = args['service_life']
+
+    elevator = {
+        'id':id,
+        'type':type,
+        "maintaining_state":"已保养",
+        "maintaining_type":maintaining_type,
+        "service_life":service_life
+    }
+
+    try:
+        with open(f'db/{location}/{id}.json', "w",encoding='utf-8') as f:
+            primary = json.dump(elevator,f,ensure_ascii=False, indent=4)
+    except:
+        pass
+
     return { 'val':True, 'err':None}
 
 from werkzeug.utils import secure_filename
@@ -118,7 +140,7 @@ def elevators_sync():
 def elevators_sync_status():
     primary = {
         'locations':{},
-        'status':'syncing',
+        'status':'synced',
         'date':'2021-06-01',
         'count':0,
         'errors':[]
@@ -132,8 +154,6 @@ def elevators_sync_status():
     del primary['locations']
     return {'val':primary,'err':None}
         
-print('http://localhost:60000/')
-
 @app.route('/fujitec/elevators-sync-date', methods=['GET'])
 def elevators_sync_date():
     try:
